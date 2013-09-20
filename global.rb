@@ -1,3 +1,4 @@
+$lock=0
 $mcol=1
 $envsize=[40, 48]
 $speed = [2.5, 2.5, 2.5, 1.5]
@@ -16,6 +17,22 @@ $levelarray=[
                         "------------------------------------------------"
                 ]
 
+#$levelarray=[
+#                        "123456781234567812345678123456781234567812345678",
+#                        "                                                ",
+#                        "                                                ",
+#                        "                                                ",
+#                        "                                                ",
+#                        "                                                ",
+#                        "                                                ",
+#                        "   -                                            ",
+#                        "                                                ",
+#                        "                                                ",
+#                        "  --                                            ",
+#                        "                                                "
+#                ]
+
+
 $lvl_xy = Array.new
 $lvl_xy[0] = Array.new
 $lvl_xy[1] = Array.new
@@ -24,8 +41,7 @@ $levelflag
         array=$levelarray
         i=0
         j=0
-        while i<12
-                a=array[i]
+	 array.each {|a|
                 while j < $envsize[1]
                  if a[j].chr=='-'
 		   x =40*j
@@ -37,10 +53,10 @@ $levelflag
                 end
                 j=0
                 i+=1
-        end
+	 }
 #puts $levelarray
 kk=0
-$lvl_xy[0].each {|kk| puts kk}
+#$lvl_xy[0].each {|kk| puts kk}
 
 
  def check(x,y)
@@ -57,6 +73,23 @@ $lvl_xy[0].each {|kk| puts kk}
 
         return dr
         end
-puts check(55,439.5)
-
+#puts check(55,439.5)
 # SPeed counts. 1=move speed, jump speed tap, gravity power, jump high (to increase jump high decrease value)
+
+puts $lvl_xy[0]
+puts ""
+#puts $lvl_xy[1]
+
+  def delblock(x,y,array)
+         ax=x/40
+         ay=y/40
+         puts "delx=#{ax}, delt=#{ay}"
+         str=array[ay]
+         mas=str.scan(/./)
+         mas[ax]=' '
+         str=mas.to_s
+         array[ay]=str
+        return array
+        end
+
+#puts delblock(120,280,$levelarray)

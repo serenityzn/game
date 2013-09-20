@@ -87,7 +87,7 @@ class Player
 	 @x=xx
 #:	 @y %= 480
 	 $globy=@y
-	 puts "Jum=#{@isjump}"
+#	 puts "Jum=#{@isjump}"
 	end
 
 	def draw
@@ -110,6 +110,20 @@ class Player
 	 @score += 1
 	 end
 	end
+
+
+	def delblock(x,y,array)
+         ax=x/40
+         ay=y/40
+	 puts "delx=#{ax}, delt=#{ay}"
+         str=array[ay]
+         mas=str.scan(/./)
+         mas[ax]=' '
+         str=mas.to_s
+         array[ay]=str
+	return array
+	end
+
 	
 	def check(x,y,action)
 	 arsize = $lvl_xy[0].size
@@ -122,9 +136,11 @@ class Player
 		if action==1 
 		 $jmp=0
 		end
-		if @isjump==1
-	#	 a[0].delete_at(i)
-	#	 a[1].delete_at(i)
+		if @isjump==1 and $globy>a[1][i] and a[0][i]-$globx<-5
+		 $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
+		 a[0].delete_at(i)
+		 a[1].delete_at(i)
+		 $lock=0
 		end
          end
         i += 1

@@ -51,7 +51,7 @@ class Turtle
 	 if @y==$globy and @x-$globx>0
 	  @route=0
 	 end
-	     puts "rflag=#{$runflag} mid=#{@monsterid}"
+#	     puts "rflag=#{$runflag} mid=#{@monsterid}"
 	 if @route==0
 		dta=@y-$globy
 	  if $globx>@x-25 and $globx<@x+25 and dta<21 and dta>16 and ($runflag==0 or $runflag==@monsterid)
