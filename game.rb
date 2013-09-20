@@ -110,11 +110,6 @@ class GameWindow < Gosu::Window
 			i.gravity
 			}
 
-#		@monsters[0].each {|i| 
-#			if i.kill==1
-#			 @player.live(1)
-#			 @player.warp(120,350)
-#			end
 #			}
 
 		if rand(100) < 4 and @stars.size < 25 then
@@ -142,10 +137,14 @@ class GameWindow < Gosu::Window
 			 i.draw
 			end
 			}
-
+		if $break==1
+		 crash="on"
+		else
+		 crash="off"
+		end
 		@font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
 		@font.draw("Live: #{@player.live(0)}", 580, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
-		@font.draw("Crash mode:#{$break}", 300, 455, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+		@font.draw("Crash mode:#{crash}", 300, 455, ZOrder::UI, 1.0, 1.0, 0xffffff00)
 	end 
 
 	def button_down(id)
