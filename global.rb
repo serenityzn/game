@@ -40,10 +40,7 @@ $levelflag
         end
 #puts $levelarray
 kk=0
-while kk< $lvl_xy[0].size
-	puts "Coord:[#{$lvl_xy[0][kk]},#{$lvl_xy[1][kk]}]"
-	kk+=1
-end
+$lvl_xy[0].each {|kk| puts kk}
 
 
  def check(x,y)

@@ -56,21 +56,34 @@ class Level
         array=$levelarray
         i=0
         j=0
-        while i<6
-                a=array[i]
-                while j<16
-                 if a[j].chr=='-'
-                  x =$envsize[0]*j
-                  y =$envsize[0]*i
-                    $lvl_xy[0].push(x)
-                    $lvl_xy[1].push(y)
-                 end
-                 j +=1
-                end
-                j=0
-                i+=1
-        end
-        end
+	array.each {|a| 
+	 a.each {|b|
+			if b=='-'
+			 x=$envsize[0]*j
+			 y=$envsize[0]*i
+			 $lvl_xy[0].push(x)
+			 $lvl_xy[1].push(y)
+			end
+		 j+=1
+		}
+	j=0
+	i+=1
+	}
+#        while i<6
+#                a=array[i]
+#                while j<16
+#                 if a[j].chr=='-'
+#                  x =$envsize[0]*j
+#                  y =$envsize[0]*i
+#                    $lvl_xy[0].push(x)
+#                    $lvl_xy[1].push(y)
+#                 end
+#                 j +=1
+#                end
+#                j=0
+#                i+=1
+#        end
+       end
 
 
 end

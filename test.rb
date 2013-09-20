@@ -1,11 +1,6 @@
-a=56.0
-b=690.5
-
-c=a/630
-d=b/640
-puts c.to_i
-puts d.to_i
-
-
-
-
+a=Array.new
+a[0]=Array.new
+a[1]=Array.new
+a[0]=[1,2,3,4,5,6]
+a[1]=['a','b','c','d','e','f']
+a[0].each {|i| a[1].each {|j| puts "#{i},#{j}"}}

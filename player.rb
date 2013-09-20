@@ -6,6 +6,7 @@ class Player
 	 @live=3
 	 @count=0
 	 $gravity=1
+	 @isjump=0
 	end
 
 	def warp(x,y)
@@ -43,6 +44,7 @@ class Player
 	def jump
 	 $gravity=1
 	 if $ifground==1 
+		@isjump=1
 		$ifground=0
 		$jmp=50
 	 end
@@ -73,6 +75,7 @@ class Player
 	    @y += $speed[2]
 	   else 
 	    $ifground=1
+	    @isjump=0
 	   end
 	 end
 	end	
@@ -84,6 +87,7 @@ class Player
 	 @x=xx
 #:	 @y %= 480
 	 $globy=@y
+	 puts "Jum=#{@isjump}"
 	end
 
 	def draw
@@ -117,6 +121,10 @@ class Player
                 dr=0
 		if action==1 
 		 $jmp=0
+		end
+		if @isjump==1
+	#	 a[0].delete_at(i)
+	#	 a[1].delete_at(i)
 		end
          end
         i += 1

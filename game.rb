@@ -103,19 +103,19 @@ class GameWindow < Gosu::Window
 		@player.jump2
 		@player.collect_stars(@stars)
 		i=0
-		while i<@monsters[0].size
-		 @monsters[0][i].move
-		 @monsters[0][i].gravity
-		 i+=1
-		end
-		i=0
-#		while i<@monsters[0].size
-#		  	if @monsters[0][i].kill==1
+
+		@monsters[0].each {|i|  
+			i.move
+			i.gravity
+			}
+
+#		@monsters[0].each {|i| 
+#			if i.kill==1
 #			 @player.live(1)
 #			 @player.warp(120,350)
 #			end
-#		 i+=1
-#		end
+#			}
+
 		if rand(100) < 4 and @stars.size < 25 then
 		   @stars.push(Star.new(@star_anim))
 		end
@@ -124,21 +124,24 @@ class GameWindow < Gosu::Window
 
 	def draw
 		@level.draw($globx)
+
 		if @player.live(0) > 0 
 			@player.draw
 
 		else
 			@font.draw("GAME OVER", 200,200, ZOrder::UI, 3.0, 3.0, 0xcccc0000)
 		end
+
 		@background_image.draw(0, 0, 0)
 		@stars.each { |star| star.draw }
 		i=0
-		while i<@monsters[0].size	
-			if @monsters[0][i].cross==1
-			 @monsters[0][i].draw
+
+		@monsters[0].each { |i|
+			if i.cross==1
+			 i.draw
 			end
-		 i+=1
-		end
+			}
+
 		@font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
 		@font.draw("Live: #{@player.live(0)}", 580, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
 	end 
