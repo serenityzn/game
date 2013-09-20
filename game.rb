@@ -31,9 +31,9 @@ class GameWindow < Gosu::Window
 		@monsters[0].push(Turtle.new(self))
 		@monsters[1].push(400)
 		@monsters[2].push(100)
-#		@monsters[0].push(Turtle.new(self))
-#		@monsters[1].push(1400)
-#		@monsters[2].push(10)
+		@monsters[0].push(Turtle.new(self))
+		@monsters[1].push(1400)
+		@monsters[2].push(10)
 		i=0
 		while i<@monsters[0].size
 		@monsters[0][i].warp(@monsters[1][i].to_i,@monsters[2][i].to_i)
@@ -81,6 +81,7 @@ class GameWindow < Gosu::Window
 	end 
 
 	def update 
+		
 		if button_down? Gosu::KbLeft or button_down? Gosu::GpLeft then
 		 @player.turn_left(@pl1anim_l)
 		 @sl=0
@@ -144,11 +145,18 @@ class GameWindow < Gosu::Window
 
 		@font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
 		@font.draw("Live: #{@player.live(0)}", 580, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+		@font.draw("Crash mode:#{$break}", 300, 455, ZOrder::UI, 1.0, 1.0, 0xffffff00)
 	end 
 
 	def button_down(id)
 	 if id == Gosu::KbEscape
 		close
+	 end
+	 if id == Gosu::KbSpace
+		$break+=1
+		if $break==2
+			$break=0
+		end
 	 end
 	end
 end 

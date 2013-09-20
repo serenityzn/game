@@ -1,3 +1,4 @@
+$break=0
 $lock=0
 $mcol=1
 $envsize=[40, 48]
