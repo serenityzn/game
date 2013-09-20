@@ -7,6 +7,7 @@ class Player
 	 @count=0
 	 $gravity=1
 	 @isjump=0
+	 @route=0
 	end
 
 	def warp(x,y)
@@ -16,6 +17,7 @@ class Player
 	end
 
 	def turn_left(image)
+	 @route=0
 	 x=$globx-$speed[0]
 	 if @count > image.size-1
           @count=0
@@ -29,6 +31,7 @@ class Player
 	end
 
 	def turn_right(image)
+	 @route=1
 	 if @count > image.size-1
           @count=0
          end
@@ -136,7 +139,7 @@ class Player
 		if action==1 
 		 $jmp=0
 		end
-		if @isjump==1 and $globy>a[1][i] and a[0][i]-$globx<-5
+		if @isjump==1 and $globy>a[1][i] and ((a[0][i]-$globx<0 and @route==1) or (a[0][i]-$globx>0 and @route==0))
 		 $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
 		 a[0].delete_at(i)
 		 a[1].delete_at(i)
