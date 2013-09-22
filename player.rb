@@ -90,7 +90,7 @@ class Player
 	 @x=xx
 #:	 @y %= 480
 	 $globy=@y
-	 puts "Crash mode=#{$break}"
+#	 puts "Crash mode=#{$break}"
 	end
 
 	def draw
@@ -139,8 +139,10 @@ class Player
 		if action==1 
 		 $jmp=0
 		end
-		if $break==1 and @isjump==1 and $globy>a[1][i] and ((a[0][i]-$globx<0 and @route==1) or (a[0][i]-$globx>0 and @route==0))
+		# puts "PLX=#{$globx} , BlockX=#{a[0][i]} delta=#{a[0][i]-$globx}"
+		if $break==1 and @isjump==1 and $globy>a[1][i] and ((a[0][i]-$globx<0 and @route==1) or (a[0][i]-$globx>-50 and @route==0))
 		 $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
+		 puts "PLX=#{$globx} , BlockX=#{a[0][i]} delta=#{a[0][i]-$globx}"
 		 a[0].delete_at(i)
 		 a[1].delete_at(i)
 		 $lock=0
