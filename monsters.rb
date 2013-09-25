@@ -141,7 +141,7 @@ class Turtle
 	 dr=0
 	i=0
 	while i<arsize
-         if (x > a[0][i].to_i-15 and x < a[0][i].to_i+55) and ( y-a[1][i].to_i<80 )
+         if (x > a[0][i].to_i-55 and x < a[0][i].to_i+95) and ( y-a[1][i].to_i<80 )
                 dr=1
          end
         i += 1
