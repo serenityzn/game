@@ -35,6 +35,13 @@ class Turtle
 	  @route=0
 #	  puts "TURTLE X=#{@x} Y=#{@y}"
 	 end
+	 if jmpcheck(@x,@y)==1
+	  jump
+	 end
+	end
+	
+	def jump
+	 @y-=3
 	end
 
 	def gravity
@@ -121,6 +128,21 @@ class Turtle
 	while i<arsize
          if (x > a[0][i].to_i-15 and x < a[0][i].to_i+55) and ( y+1> a[1][i].to_i-15 and y+1< a[1][i].to_i+55)
                 dr=0
+         end
+        i += 1
+	end
+	
+	return dr 
+	end
+
+	def jmpcheck(x,y)
+	 arsize = $lvl_xy[0].size
+	 a=$lvl_xy
+	 dr=0
+	i=0
+	while i<arsize
+         if (x > a[0][i].to_i-15 and x < a[0][i].to_i+55) and ( y-a[1][i].to_i<80 )
+                dr=1
          end
         i += 1
 	end
