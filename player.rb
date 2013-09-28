@@ -49,7 +49,7 @@ class Player
 	 if $ifground==1 
 		@isjump=1
 		$ifground=0
-		$jmp=50
+		$jmp=$speed[4]
 	 end
 	end
 	
