@@ -108,6 +108,14 @@ class GameWindow < Gosu::Window
 			i.move
 			i.gravity
 			}
+		i=0
+               while i<@monsters[0].size
+                       if @monsters[0][i].kill==1
+                        @player.live(1)
+                        @player.warp(120,350)
+                       end
+                i+=1
+               end
 
 #			}
 
