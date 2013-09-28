@@ -69,6 +69,10 @@ class GameWindow < Gosu::Window
 		@block.push(Gosu::Image.new(self, "media/block1.png", false))
 		@block.push(Gosu::Image.new(self, "media/block.png", false))
 		@block.push(Gosu::Image.new(self, "media/block2.png", false))
+		@block.push(Gosu::Image.new(self, "media/block_pipe_l1.png", false))
+		@block.push(Gosu::Image.new(self, "media/block_pipe_r1.png", false))
+		@block.push(Gosu::Image.new(self, "media/block_pipe_l2.png", false))
+		@block.push(Gosu::Image.new(self, "media/block_pipe_r2.png", false))
 
 	end 
 

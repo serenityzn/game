@@ -33,7 +33,7 @@ class Level
 	while i<12
 	        a=array[i]
 	        while j<max
-	         if a[j].chr=='-' or a[j].chr=='=' or a[j].chr=='?'
+	         if a[j].chr=='-' or a[j].chr=='=' or a[j].chr=='?' or a[j].chr=='/' or a[j].chr=='|' or a[j].chr=='I' or a[j].chr=='t'
 		  if j<16
 		   @x =$envsize[0]*j
 		   @y =$envsize[0]*i
@@ -49,6 +49,18 @@ class Level
 			end
 		  	if a[j].chr=='?'
 			 @image = mas[2]
+			end
+		  	if a[j].chr=='/'
+			 @image = mas[5]
+			end
+		  	if a[j].chr=='|'
+			 @image = mas[6]
+			end
+		  	if a[j].chr=='I'
+			 @image = mas[3]
+			end
+		  	if a[j].chr=='t'
+			 @image = mas[4]
 			end
 		  
 		  @image.draw(@x, @y, 1)
