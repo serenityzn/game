@@ -35,9 +35,9 @@ class Turtle
 	  @route=0
 #	  puts "TURTLE X=#{@x} Y=#{@y}"
 	 end
-	 if jmpcheck(@x,@y)==1
-	  jump
-	 end
+#	 if jmpcheck(@x,@y)==1
+#	  jump
+#	 end
 	end
 	
 	def jump

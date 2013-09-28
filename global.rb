@@ -46,7 +46,7 @@ $levelflag
         j=0
 	 array.each {|a|
                 while j < $envsize[1]
-                 if a[j].chr=='-' or a[j].chr=='=' or a[j].chr=='?'
+                 if a[j].chr=='-' or a[j].chr=='=' or a[j].chr=='?' or a[j].chr=='+'
 		   x =40*j
                    y =40*i
                     $lvl_xy[0].push(x)
