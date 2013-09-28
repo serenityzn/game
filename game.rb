@@ -44,13 +44,8 @@ class GameWindow < Gosu::Window
 		@stars = Array.new
 		@pl1anim_r = Array.new
 		@pl1anim_l = Array.new
+		@block = Array.new
 		@font = Gosu::Font.new(self, Gosu::default_font_name, 20)
-#	Player right animation
-#		@pl1anim_r.push(Gosu::Image.new(self, "media/pl_img4_r.png", false))
-#                @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img4_r.png", false))
-#                @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img4_r.png", false))
-#                @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img4_r.png", false))
-#                @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img4_r.png", false))
                 @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img5_r.png", false))
 		@pl1anim_r.push(Gosu::Image.new(self, "media/pl_img5_r.png", false))
                 @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img5_r.png", false))
@@ -61,12 +56,6 @@ class GameWindow < Gosu::Window
                 @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img2_r.png", false))
                 @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img2_r.png", false))
                 @pl1anim_r.push(Gosu::Image.new(self, "media/pl_img2_r.png", false))
-#	Player left animation
-#		@pl1anim_l.push(Gosu::Image.new(self, "media/pl_img4.png", false))
-#                @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img4.png", false))
-#                @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img4.png", false))
-#                @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img4.png", false))
-#                @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img4.png", false))
                 @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img5.png", false))
 		@pl1anim_l.push(Gosu::Image.new(self, "media/pl_img5.png", false))
                 @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img5.png", false))
@@ -77,6 +66,9 @@ class GameWindow < Gosu::Window
                 @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img2.png", false))
                 @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img2.png", false))
                 @pl1anim_l.push(Gosu::Image.new(self, "media/pl_img2.png", false))
+		@block.push(Gosu::Image.new(self, "media/block1.png", false))
+		@block.push(Gosu::Image.new(self, "media/block.png", false))
+		@block.push(Gosu::Image.new(self, "media/block2.png", false))
 
 	end 
 
@@ -119,7 +111,7 @@ class GameWindow < Gosu::Window
 	end 
 
 	def draw
-		@level.draw($globx)
+		@level.draw($globx,@block)
 
 		if @player.live(0) > 0 
 			@player.draw

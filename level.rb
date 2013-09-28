@@ -1,6 +1,6 @@
 class Level
 	def initialize(window)
-	 @image = Gosu::Image.new(window, "media/block.png", false)
+	 #@image = Gosu::Image.new(window, "media/block.png", false)
 	 @x = @y = @angle = 0.0
 	 @score = 0
 	end
@@ -14,7 +14,7 @@ class Level
 	 @y %= 480
 	end
 
-	def draw(camx)
+	def draw(camx,mas)
 	j=0
 	array=$levelarray
 	if camx.to_i > 639
@@ -33,7 +33,7 @@ class Level
 	while i<12
 	        a=array[i]
 	        while j<max
-	         if a[j].chr=='-'
+	         if a[j].chr=='-' or a[j].chr=='='
 		  if j<16
 		   @x =$envsize[0]*j
 		   @y =$envsize[0]*i
@@ -41,6 +41,12 @@ class Level
 		   @x =$envsize[0]*(j-j/16*16)
 		   @y =$envsize[0]*i
 		  end
+		  	if a[j].chr=='='
+			 @image = mas[0]
+			else
+			 @image = mas[1]
+			end
+		  
 		  @image.draw(@x, @y, 1)
 	         end
 	         j +=1
