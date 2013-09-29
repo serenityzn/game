@@ -52,6 +52,11 @@ class Player
 		@isjump=1
 		$ifground=0
 		$jmp=$speed[4]
+		@high=125
+		time=gettime(@high)
+		puts "Time=#{time}"
+		$grpower=GrPower(time)
+		
 	 end
 	end
 	
@@ -74,10 +79,16 @@ class Player
 	
 	def gravity
 	 if $jmp.to_i==0  
-	   y=@y+$speed[2]
+#	   y=@y+$speed[2]
+	   prom=$grpower.pop
+		if prom==nil
+		  prom=2.5
+		end
+	   y=@y+prom
 	   $ifground=0
 	   if check($globx,y,1).to_i==1 and $gravity==1
-	    @y += $speed[2]
+#	    @y += $speed[2]
+	    @y +=prom
 	 @image = @image_arr[0]
 	   else 
 	    $ifground=1
@@ -93,7 +104,6 @@ class Player
 	 @x=xx
 #:	 @y %= 480
 	 $globy=@y
-#	 puts "Crash mode=#{$break}"
 	end
 
 	def draw
@@ -121,7 +131,7 @@ class Player
 	def delblock(x,y,array)
          ax=x/40
          ay=y/40
-	 puts "delx=#{ax}, delt=#{ay}"
+#	 puts "delx=#{ax}, delt=#{ay}"
          str=array[ay]
          mas=str.scan(/./)
          mas[ax]=' '
@@ -158,3 +168,45 @@ class Player
 	end
 
 end
+
+def grav(r)
+        l=39062.5
+        gr=l/(r*r)
+	$r-=gr
+	if $r<25
+	 $r=125
+	end
+	   puts "High=#{$r}, Gravity=#{gr}"
+        return gr
+end
+
+
+def gettime(h)
+        t=Math.sqrt((h*2)/9.8)
+        return t.to_i
+end
+
+def GrPower(t)
+        i=1
+        gp = Array.new
+        final = Array.new
+	final1 = Array.new
+        while i<t+1
+        gp.push((9.8*i*i)/2)
+        i+=1
+        end
+        j=1
+        final.push(gp[0])
+        while j<gp.size
+                final.push(gp[j]-gp[j-1])
+                j+=1
+        end
+	i=final.size-1
+	while i>-1
+	final1.push(final[i])
+	 i-=1
+	end
+
+        return final1
+end
+
