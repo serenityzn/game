@@ -1,6 +1,8 @@
 class Player
 	def initialize(window)
-	 @image = Gosu::Image.new(window, "media/pl2.png", false)
+	 @image = Gosu::Image.new(window, "media/mario_0.png", false)
+	 @image_arr = Array.new
+	 @image_arr[0] = Gosu::Image.new(window, "media/mario_0.png", false) 
 	 @x = @y = @vel_x = @vel_y = @angle = 0.0
 	 @score = 0
 	 @live=3
@@ -76,6 +78,7 @@ class Player
 	   $ifground=0
 	   if check($globx,y,1).to_i==1 and $gravity==1
 	    @y += $speed[2]
+	 @image = @image_arr[0]
 	   else 
 	    $ifground=1
 	    @isjump=0
