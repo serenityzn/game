@@ -52,7 +52,7 @@ class Player
 		@isjump=1
 		$ifground=0
 		$jmp=$speed[4]
-		@high=125
+		@high=120
 		time=gettime(@high)
 		puts "Time=#{time}"
 		$grpower=GrPower(time)
@@ -79,16 +79,17 @@ class Player
 	
 	def gravity
 	 if $jmp.to_i==0  
-#	   y=@y+$speed[2]
-	   prom=$grpower.pop
-		if prom==nil
-		  prom=2.5
-		end
-	   y=@y+prom
+	   y=@y+$speed[2]
+#	   prom=$grpower.pop
+#		if prom==nil
+#		  prom=2.5
+#		end
+#	   y=@y+prom
 	   $ifground=0
 	   if check($globx,y,1).to_i==1 and $gravity==1
-#	    @y += $speed[2]
-	    @y +=prom
+	    @y += $speed[2]
+#	    @y +=prom
+#	    puts "Gravity value= #{prom}"
 	 @image = @image_arr[0]
 	   else 
 	    $ifground=1
@@ -182,8 +183,8 @@ end
 
 
 def gettime(h)
-        t=Math.sqrt((h*2)/9.8)
-        return t.to_i
+        t=Math.sqrt((h*2)/$g)
+        return round(t)
 end
 
 def GrPower(t)
@@ -192,7 +193,7 @@ def GrPower(t)
         final = Array.new
 	final1 = Array.new
         while i<t+1
-        gp.push((9.8*i*i)/2)
+        gp.push(($g*i*i)/2)
         i+=1
         end
         j=1
@@ -210,3 +211,12 @@ def GrPower(t)
         return final1
 end
 
+def round(a)
+        b=(a-a.to_i)*10
+        if b>5
+         b=a.to_i+1
+        else
+         b=a.to_i
+        end
+        return b
+end
