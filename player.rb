@@ -10,6 +10,7 @@ class Player
 	 $gravity=1
 	 @isjump=0
 	 @route=0
+	 @gpower=1
 	end
 
 	def warp(x,y)
@@ -43,7 +44,7 @@ class Player
 	 if check(x,@y,0).to_i==1
 	  @x += $speed[0]
 	  $globx += $speed[0]
-	 end	
+	 end
 	end
 
 	def jump
@@ -53,9 +54,9 @@ class Player
 		$ifground=0
 		$jmp=$speed[4]
 		@high=170
-		time=gettime(@high)
-		puts "Time=#{time}"
-		$grpower=GrPower(time,@high)
+#		time=gettime(@high)
+		#puts "Time=#{time}"
+#		$grpower=GrPower(time,@high)
 		
 	 end
 	end
@@ -63,9 +64,9 @@ class Player
 	def jump2
 	 if $jmp.to_i>0
 	  $jmp-=$speed[3]
-		y=@y-$speed[1]
+		y=@y-$jmparr[$jmp]
 	   if check($globx,y,1).to_i==1
-	    @y -= $speed[1]
+	    @y-=$jmparr[$jmp]
 	   end
 	 end
 	end
@@ -78,21 +79,27 @@ class Player
 	end
 	
 	def gravity
-	 if $jmp.to_i==0
-#	   y=@y+$speed[2]
+	 if $jmp.to_i==0 
+	   $ifground=0
+		if @gpower==1
+		 @high=calch($globx,$globy)
+		 time=gettime(@high)
+		 $grpower=GrPower(time,@high)
+		 @gpower=0
+		end
 	   prom=$grpower.pop
+#	   prom=nil
 		if prom==nil
 		  prom=2.5
 		end
 	   y=@y+prom
-	   $ifground=0
+#	   $ifground=0
 	   if check($globx,y,1).to_i==1 and $gravity==1
-#	    @y += $speed[2]
 	    @y +=prom
-#	    puts "Gravity value= #{prom}"
-	 @image = @image_arr[0]
+#	 @image = @image_arr[0]
 	   else 
 	    $ifground=1
+	    @gpower=1
 	    @isjump=0
 	   end
 	 end
@@ -156,7 +163,7 @@ class Player
 		# puts "PLX=#{$globx} , BlockX=#{a[0][i]} delta=#{a[0][i]-$globx}"
 		if $break==1 and @isjump==1 and $globy>a[1][i] and ((a[0][i]-$globx<0 and @route==1) or (a[0][i]-$globx>-50 and @route==0))
 		 $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
-		 puts "PLX=#{$globx} , BlockX=#{a[0][i]} delta=#{a[0][i]-$globx}"
+#		 puts "PLX=#{$globx} , BlockX=#{a[0][i]} delta=#{a[0][i]-$globx}"
 		 a[0].delete_at(i)
 		 a[1].delete_at(i)
 		 $lock=0
@@ -167,72 +174,93 @@ class Player
 	
 	return dr 
 	end
-
-end
-
-def grav(r)
+	def grav(r)
         l=39062.5
         gr=l/(r*r)
 	$r-=gr
 	if $r<25
 	 $r=125
 	end
-	   puts "High=#{$r}, Gravity=#{gr}"
+#	   puts "High=#{$r}, Gravity=#{gr}"
         return gr
-end
-
-
-def gettime(h)
-        t=Math.sqrt((h*2)/$g)
-        return round(t)
-end
-
-def GrPower(t,r)
-        i=1
-        gp = Array.new
-        final = Array.new
-	final1 = Array.new
-        while i<t+1
-        gp.push(($g*i*i)/2)
-        i+=1
-        end
-        j=1
-        final.push(0)
-        final.push(0)
-        final.push(0)
-        final.push(0)
-        final.push(0)
-        final.push(0)
-        final.push(0)
-        final.push(0)
-        final.push(gp[0])
-        while j<gp.size
-                final.push(gp[j]-gp[j-1])
-                j+=1
-        end
-	i=final.size-1
-	while i>-1
-	final1.push(final[i])
-	 i-=1
 	end
-	total=0
-        final1.each {|a|
-         total+=a
-        }
-        delta=r-total
-        if delta>0
-                final1[0]=final1[0]+delta
-        end
 
-        return final1
-end
 
-def round(a)
-        b=(a-a.to_i)*10
-        if b>5
-         b=a.to_i+1
-        else
-         b=a.to_i
-        end
-        return b
+	def gettime(h)
+	        t=Math.sqrt((h*2)/$g)
+	        return round(t)
+	end
+
+	def GrPower(t,r)
+	        i=1
+	        gp = Array.new
+	        final = Array.new
+		final1 = Array.new
+	        while i<t+1
+	        gp.push(($g*i*i)/2)
+	        i+=1
+	        end
+	        j=1
+	        final.push(0)
+	        final.push(0)
+	        final.push(0)
+	        final.push(0)
+	        final.push(gp[0])
+	        while j<gp.size
+	                final.push(gp[j]-gp[j-1])
+	                j+=1
+	        end
+		i=final.size-1
+		while i>-1
+		final1.push(final[i])
+		 i-=1
+		end
+		total=0
+	        final1.each {|a|
+	         total+=a
+	        }
+	        delta=r-total
+	        if delta>0
+	                final1[0]=final1[0]+delta
+	        end
+	
+	        return final1
+	end
+
+	def round(a)
+	        b=(a-a.to_i)*10
+	        if b>5
+	         b=a.to_i+1
+	        else
+	         b=a.to_i
+	        end
+	        return b
+	end
+
+	def calch(x,y)
+	harr = Array.new
+	prom=0
+	high=99999999
+	bx=0
+	by=0
+	i=0
+	        while i<$lvl_xy[0].size
+#	                puts "x,y=#{x},#{y} bx,by=#{$lvl_xy[0][i]},#{$lvl_xy[1][1]}"
+	                if x>=$lvl_xy[0][i] and x<$lvl_xy[0][i]+40
+	                        prom=$lvl_xy[1][i]-y
+	                        if prom<high and prom>0
+	#                         puts "Enter"
+	                                high=prom
+	                                bx=$lvl_xy[0][i]
+	                                by=$lvl_xy[1][i]
+	                        end
+	                end
+	         i+=1
+	        end
+	harr.push(high)
+	harr.push(bx)
+	harr.push(by)
+	
+	        return high
+	end
 end

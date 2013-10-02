@@ -1,8 +1,10 @@
+require './global.rb'
+
 r=170
 	t=Math.sqrt(25)
 
 def gettime(h)
-	t=Math.sqrt((h*2)/2)
+	t=Math.sqrt((h*2)/0.5)
 	puts "Time before #{t}"
 	return round(t)
 end
@@ -13,7 +15,7 @@ def GrPower(t,r)
 	final = Array.new
 	final1 = Array.new
 	while i<t+1
-	gp.push((2*i*i)/2)
+	gp.push((0.5*i*i)/2)
 	i+=1
 	end
 	j=1
@@ -64,3 +66,33 @@ if  arr.pop==nil
 	puts "coco=true"
 end
 puts "Totatl: #{total}"
+
+def calch(x,y)
+harr = Array.new
+prom=0
+high=99999999
+bx=0
+by=0
+i=0
+	while i<$lvl_xy[0].size
+		puts "x,y=#{x},#{y} bx,by=#{$lvl_xy[0][i]},#{$lvl_xy[1][1]}"
+		if x>=$lvl_xy[0][i] and x<$lvl_xy[0][i]+40
+			prom=$lvl_xy[1][i]-y
+			if prom<high
+			 puts "Enter"
+				high=prom
+				bx=$lvl_xy[0][i]
+				by=$lvl_xy[1][i]
+			end			
+		end 
+	 i+=1
+	end
+harr.push(high)
+harr.push(bx)
+harr.push(by)
+
+	return harr
+end
+
+#puts calch(240,65)
+
