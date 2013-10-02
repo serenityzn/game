@@ -1,22 +1,24 @@
-r=120
+r=170
 	t=Math.sqrt(25)
 
 def gettime(h)
-	t=Math.sqrt((h*2)/4)
+	t=Math.sqrt((h*2)/2)
 	puts "Time before #{t}"
 	return round(t)
 end
 
-def GrPower(t)
+def GrPower(t,r)
 	i=1
 	gp = Array.new
 	final = Array.new
 	final1 = Array.new
 	while i<t+1
-	gp.push((4*i*i)/2)
+	gp.push((2*i*i)/2)
 	i+=1
 	end
 	j=1
+	final.push(0)
+	final.push(0)
 	final.push(gp[0])
 	while j<gp.size
 		final.push(gp[j]-gp[j-1])
@@ -27,7 +29,14 @@ def GrPower(t)
 	 final1.push(final[i])
 	 i-=1
 	end
-
+	total=0
+	final1.each {|a|
+	 total+=a
+	}	
+	delta=r-total
+	if delta>0
+		final1[0]=final1[0]+delta
+	end
 	return final1
 end
 
@@ -44,7 +53,7 @@ end
 
 
 time=gettime(r)
-arr=GrPower(time)
+arr=GrPower(time,r)
 puts "TIME=#{time}"
 total=0
 arr.each {|a|
