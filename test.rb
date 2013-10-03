@@ -1,6 +1,6 @@
 require './global.rb'
 
-r=170
+r=180
 	t=Math.sqrt(25)
 
 def gettime(h)
@@ -36,9 +36,8 @@ def GrPower(t,r)
 	 total+=a
 	}	
 	delta=r-total
-	if delta>0
+	puts "delta=#{delta}"
 		final1[0]=final1[0]+delta
-	end
 	return final1
 end
 

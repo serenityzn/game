@@ -1,12 +1,10 @@
-def round(a)
-	b=(a-a.to_i)*10
-        puts "Posle zap #{b}"
-	if b>5
-	 b=a.to_i+1
-	else
-	 b=a.to_i
+class Test
+	def initialize
+		@x=1
+		@y=1
 	end
-	return b
 end
 
-puts round(4.8)
+
+a = Test.new()
+puts a.@x

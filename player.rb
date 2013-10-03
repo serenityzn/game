@@ -54,9 +54,6 @@ class Player
 		$ifground=0
 		$jmp=$speed[4]
 		@high=170
-#		time=gettime(@high)
-		#puts "Time=#{time}"
-#		$grpower=GrPower(time,@high)
 		
 	 end
 	end
@@ -76,28 +73,43 @@ class Player
 	 if check($globx,y,1).to_i==1
 	  @y += $speed[2]
 	 end	
+	puts "Monsters count=#{$mcol}"
+	i=0
+		while i<$mcoord[0].size
+		 puts "MonstersXY[#{$mcoord[0][i]},#{$mcoord[1][i]}"
+		 i+=1
+		end
+	
 	end
 	
 	def gravity
+	tot=0
 	 if $jmp.to_i==0 
-	   $ifground=0
 		if @gpower==1
 		 @high=calch($globx,$globy)
-		 time=gettime(@high)
-		 $grpower=GrPower(time,@high)
+		 if @high>25
+			 time=gettime(@high)
+			 $grpower=GrPower(time,@high)
+	#		 puts "PLxy [#{$globx},#{$globy}] High=#{@high} "
+	#		 $grpower.each {|w| 
+	#			puts " #{w}" 
+	#			tot+=w
+	#			}
+	#		 puts "Total=#{tot}"
+			 
+		 end
 		 @gpower=0
 		end
 	   prom=$grpower.pop
-#	   prom=nil
 		if prom==nil
 		  prom=2.5
 		end
 	   y=@y+prom
-#	   $ifground=0
+	   $ifground=0
 	   if check($globx,y,1).to_i==1 and $gravity==1
 	    @y +=prom
-#	 @image = @image_arr[0]
-	   else 
+	 @image = @image_arr[0]
+	   else
 	    $ifground=1
 	    @gpower=1
 	    @isjump=0
@@ -139,7 +151,6 @@ class Player
 	def delblock(x,y,array)
          ax=x/40
          ay=y/40
-#	 puts "delx=#{ax}, delt=#{ay}"
          str=array[ay]
          mas=str.scan(/./)
          mas[ax]=' '
@@ -157,13 +168,12 @@ class Player
 	while i<arsize
          if (x > a[0][i].to_i-15 and x < a[0][i].to_i+$envsize[0]+15) and ( y+1> a[1][i].to_i-15 and y+1< a[1][i].to_i+$envsize[0]+15)
                 dr=0
+		#puts "ERROR: #{y}"
 		if action==1 
 		 $jmp=0
 		end
-		# puts "PLX=#{$globx} , BlockX=#{a[0][i]} delta=#{a[0][i]-$globx}"
 		if $break==1 and @isjump==1 and $globy>a[1][i] and ((a[0][i]-$globx<0 and @route==1) or (a[0][i]-$globx>-50 and @route==0))
 		 $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
-#		 puts "PLX=#{$globx} , BlockX=#{a[0][i]} delta=#{a[0][i]-$globx}"
 		 a[0].delete_at(i)
 		 a[1].delete_at(i)
 		 $lock=0
@@ -181,7 +191,6 @@ class Player
 	if $r<25
 	 $r=125
 	end
-#	   puts "High=#{$r}, Gravity=#{gr}"
         return gr
 	end
 
@@ -201,10 +210,6 @@ class Player
 	        i+=1
 	        end
 	        j=1
-	        final.push(0)
-	        final.push(0)
-	        final.push(0)
-	        final.push(0)
 	        final.push(gp[0])
 	        while j<gp.size
 	                final.push(gp[j]-gp[j-1])
@@ -220,9 +225,7 @@ class Player
 	         total+=a
 	        }
 	        delta=r-total
-	        if delta>0
 	                final1[0]=final1[0]+delta
-	        end
 	
 	        return final1
 	end
@@ -238,29 +241,7 @@ class Player
 	end
 
 	def calch(x,y)
-	harr = Array.new
-	prom=0
-	high=99999999
-	bx=0
-	by=0
-	i=0
-	        while i<$lvl_xy[0].size
-#	                puts "x,y=#{x},#{y} bx,by=#{$lvl_xy[0][i]},#{$lvl_xy[1][1]}"
-	                if x>=$lvl_xy[0][i] and x<$lvl_xy[0][i]+40
-	                        prom=$lvl_xy[1][i]-y
-	                        if prom<high and prom>0
-	#                         puts "Enter"
-	                                high=prom
-	                                bx=$lvl_xy[0][i]
-	                                by=$lvl_xy[1][i]
-	                        end
-	                end
-	         i+=1
-	        end
-	harr.push(high)
-	harr.push(bx)
-	harr.push(by)
-	
+	high=420-y
 	        return high
 	end
 end

@@ -35,8 +35,30 @@ class GameWindow < Gosu::Window
 #		@monsters[1].push(1400)
 #		@monsters[2].push(10)
 		@monsters[0].push(Mushroom.new(self))
+		@monsters[1].push(100)
+		@monsters[2].push(420)
+		@monsters[0].push(Mushroom.new(self))
+		@monsters[1].push(150)
+		@monsters[2].push(420)
+		@monsters[0].push(Mushroom.new(self))
 		@monsters[1].push(200)
-		@monsters[2].push(400)
+		@monsters[2].push(420)
+		@monsters[0].push(Mushroom.new(self))
+		@monsters[1].push(300)
+		@monsters[2].push(420)
+		@monsters[0].push(Mushroom.new(self))
+		@monsters[1].push(1270)
+		@monsters[2].push(420)
+		@monsters[0].push(Mushroom.new(self))
+		@monsters[1].push(1860)
+		@monsters[2].push(420)
+		@monsters[0].push(Mushroom.new(self))
+		@monsters[1].push(1800)
+		@monsters[2].push(420)
+		@monsters[0].push(Mushroom.new(self))
+		@monsters[1].push(3300)
+		@monsters[2].push(500)
+
 		i=0
 		while i<@monsters[0].size
 		@monsters[0][i].warp(@monsters[1][i].to_i,@monsters[2][i].to_i)
@@ -124,13 +146,13 @@ class GameWindow < Gosu::Window
 			i.gravity
 			}
 		i=0
-               while i<@monsters[0].size
-                       if @monsters[0][i].kill==1
-                        @player.live(1)
-                        @player.warp(120,350)
-                       end
-                i+=1
-               end
+#               while i<@monsters[0].size
+ #                      if @monsters[0][i].kill==1
+  #                      @player.live(1)
+   #                     @player.warp(120,350)
+    #                   end
+     #           i+=1
+      #         end
 
 #			}
 

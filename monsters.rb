@@ -2,13 +2,14 @@ class Turtle
 	def initialize(window)
 	 @image = Gosu::Image.new(window, "media/turtle.png", false)
 	 @x = @y = @vel_x  = @angle = 0.0
-	 @route=1
+	 @route=0
 	 @timgs = Array.new
 	 @timgs.push(Gosu::Image.new(window, "media/turtle_r.png", false))
 	 @timgs.push(Gosu::Image.new(window, "media/turtle.png", false))
 	 $runflag=0
 	 @monsterid=$mcol
 	 $mcol+=1
+	 @mkilled=0
 	end
 
 	def warp(x,y)
@@ -18,7 +19,6 @@ class Turtle
 	def turn_left
 	 @image=@timgs[1]
 	 x=@x-0.5
-	
 	 if check(x,@y)==1
 	  @x-=0.5
 	 else
@@ -33,11 +33,7 @@ class Turtle
 	  @x+=0.5
 	 else
 	  @route=0
-#	  puts "TURTLE X=#{@x} Y=#{@y}"
 	 end
-#	 if jmpcheck(@x,@y)==1
-#	  jump
-#	 end
 	end
 	
 	def jump
@@ -49,16 +45,19 @@ class Turtle
 	 if check(@x,y)==1
 	  @y+=2.5
 	 end
+	 if @y>480
+		@mkilled=1
+	 end
 	end	
 
 	def move
+if @mkilled==0	
 	 if @y==$globy and @x-$globx<0
 	  @route=1
 	 end
 	 if @y==$globy and @x-$globx>0
 	  @route=0
 	 end
-#	     puts "rflag=#{$runflag} mid=#{@monsterid}"
 	 if @route==0
 		dta=@y-$globy
 	  if $globx>@x-25 and $globx<@x+25 and dta<21 and dta>16 and ($runflag==0 or $runflag==@monsterid)
@@ -93,17 +92,19 @@ class Turtle
 	  end
 	  turn_right
 	 end
+end
 	end
 
 	def draw
+if @mkilled==0
 	 x=@x/640
 	 xx=@x-x.to_i*640
 	 @image.draw_rot(xx, @y, 1, @angle)
+end
 	end
 
 	def kill
 	 kill=0
-
 	 x=@x-$globx
 	 if x<0
 	  x*=-1
@@ -173,38 +174,62 @@ class Mushroom
 	 @x = @y = @vel_x  = @angle = 0.0
 	 @route=0
 	 @anim=0
+	 @monsterid=$mcol
+	 $mcoord[0][@monsterid]=@x
+	 $mcoord[1][@monsterid]=@y
+	 $mcol+=1
+	 @mkilled=0
 	end
 
 	def warp(x,y)
 	 @x, @y = x, y
+	 @route=0
 	end
 
 	def turn_left
 	 x=@x-0.5
 	 if check(x,@y)==1
-	  @x-=0.5
+		if mcross(x,@y,1)==1
+		  @x-=0.5
+		else
+		 @route=1
+		end
 	 else
 	  @route=1
 	 end
+	 $mcoord[0][@monsterid]=@x
 	end
 
 	def turn_right
 	 x=@x+0.5
 	 if check(x,@y)==1
-	  @x+=0.5
+		if mcross(x,@y,0)==1
+		  @x+=0.5
+		else
+		  @route=0
+		end
 	 else
 	  @route=0
 	 end
+	 $mcoord[0][@monsterid]=@x
 	end
 	
 	def gravity
+if @mkilled==0
 	 y=@y+2.5
 	 if check(@x,y)==1
 	  @y+=2.5
 	 end
+	 $mcoord[1][@monsterid]=@y
+	 if @y>480
+	 puts "Killed"
+	  destruct
+	 end
+end
 	end	
 
 	def move
+if @mkilled==0
 		if @anim>-1 and @anim<11
 		 @image=@mimgs[0]
 		else
@@ -215,19 +240,20 @@ class Mushroom
 		if @anim==20
 		 @anim=0
 		end
-	
 		if @route==1
 		 turn_right
 		else
 		 turn_left
 		end
-		
+end		
 	end
 
 	def draw
+if @mkilled==0
 	 x=@x/640
 	 xx=@x-x.to_i*640
 	 @image.draw_rot(xx, @y, 1, @angle)
+end
 	end
 
 	def kill
@@ -275,6 +301,32 @@ class Mushroom
 	 return result
 	end
 
+	def mcross(x,y,route)
+		result=1
+		i=0
+		while i<$mcoord[0].size
+		 if i!=@monsterid
+		  if $mcoord[1][i]==y
+			if route==1
+			 if $mcoord[0][i]+40-x>0 and $mcoord[0][i]+40-x<5
+				result=0
+			 end
+			else
+			 if x-$mcoord[0][i]+40>0 and x-$mcoord[0][i]+40<5
+				result=0
+			 end
+			end
+		  end
+		 end
+	
+		 i+=1
+		end
+	return result
+	end
+	
+	def destruct
+		@mkilled=1
+	end
 end
 
 
