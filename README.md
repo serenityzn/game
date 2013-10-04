@@ -4,7 +4,7 @@ LINUX INSTALL
  CentOS 6 (rpm based)
 =
 
-<pre><code>wget https://github.com/serenityzn/game/blob/master/rpms/mariogame-1-8.el6.x86_64.rpm
+<pre><code>wget https://github.com/serenityzn/game/blob/master/rpms/mariogame-1-10.el6.x86_64.rpm
 sudo rpm -vhi mariogame-1-10.el6.x86_64.rpm
 </code></pre>
 
