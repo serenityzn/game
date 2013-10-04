@@ -1,5 +1,4 @@
-
-How to Install(Linux):
+LINUX INSTALL
 =
 
  CentOS 6 (rpm based)
@@ -48,3 +47,18 @@ If you are using rvm or rb-env, do not use 'sudo'
 To start the game
 <pre><code>cd game
 ruby game.rb</code></pre>
+
+WINDOWS INSTALL
+==
+
+Download and setup ruby installer 1.9.3. http://rubyinstaller.org/
+
+Install gosu:
+
+        gem install gosu
+
+Run game:
+
+        ruby.exe game.rb
+ 
+
