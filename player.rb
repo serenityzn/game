@@ -4,7 +4,7 @@ class Player
 	 @image_arr = Array.new
 	 @image_arr[0] = Gosu::Image.new(window, "media/mario_0.png", false) 
 	 @x = @y = @vel_x = @vel_y = @angle = 0.0
-	 @score = 0
+	 $score = 0
 	 @live=3
 	 @count=0
 	 $gravity=1
@@ -12,7 +12,8 @@ class Player
 	 @route=0
 	 @gpower=1
 	end
-
+	
+	
 	def warp(x,y)
 	 @x, @y = x, y
 	 $globx=@x
@@ -50,6 +51,10 @@ class Player
 	def jump
 	 $gravity=1
 	 if $ifground==1 
+	 @beep=$plsounds[0]
+	 @beep.play
+	 @beep.play
+#	 playsnd(self)	 
 		@isjump=1
 		$ifground=0
 		$jmp=$speed[4]
@@ -90,13 +95,6 @@ class Player
 		 if @high>25
 			 time=gettime(@high)
 			 $grpower=GrPower(time,@high)
-	#		 puts "PLxy [#{$globx},#{$globy}] High=#{@high} "
-	#		 $grpower.each {|w| 
-	#			puts " #{w}" 
-	#			tot+=w
-	#			}
-	#		 puts "Total=#{tot}"
-			 
 		 end
 		 @gpower=0
 		end
@@ -124,6 +122,7 @@ class Player
 	 @x=xx
 #:	 @y %= 480
 	 $globy=@y
+#	 mushkill
 	end
 
 	def draw
@@ -131,7 +130,7 @@ class Player
 	end
 
 	def score
-	 @score
+	 $score
 	end
 
 	def live(a)
@@ -143,7 +142,7 @@ class Player
 
 	def collect_stars(stars)
 	 if stars.reject! {|star| Gosu::distance(@x, @y, star.x, star.y) < 35 } then
-	 @score += 1
+	 $score += 1
 	 end
 	end
 
@@ -176,6 +175,8 @@ class Player
 		 $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
 		 a[0].delete_at(i)
 		 a[1].delete_at(i)
+      	         @beep = $plsounds[1]
+		 @beep.play
 		 $lock=0
 		end
          end
@@ -243,5 +244,18 @@ class Player
 	def calch(x,y)
 	high=420-y
 	        return high
+	end
+
+	def mushkill
+		 i=0
+		 while i<$mcoord[0].size
+			if $mcoord[1][i]-40>@y and @y>373
+			 puts "3"
+			 if $mcoord[0][i]-20<@x and $mcoord[0][i]+20>@x
+				puts "MUSHROOM KILLED"
+			 end
+			end
+		  i+=1
+		 end
 	end
 end

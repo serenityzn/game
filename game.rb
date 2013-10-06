@@ -34,12 +34,12 @@ class GameWindow < Gosu::Window
 #		@monsters[0].push(Turtle.new(self))
 #		@monsters[1].push(1400)
 #		@monsters[2].push(10)
-		@monsters[0].push(Mushroom.new(self))
-		@monsters[1].push(100)
-		@monsters[2].push(420)
-		@monsters[0].push(Mushroom.new(self))
-		@monsters[1].push(150)
-		@monsters[2].push(420)
+#		@monsters[0].push(Mushroom.new(self))
+#		@monsters[1].push(100)
+#		@monsters[2].push(420)
+#		@monsters[0].push(Mushroom.new(self))
+#		@monsters[1].push(150)
+#		@monsters[2].push(420)
 		@monsters[0].push(Mushroom.new(self))
 		@monsters[1].push(200)
 		@monsters[2].push(420)
@@ -65,8 +65,8 @@ class GameWindow < Gosu::Window
 		i+=1
 		end
 
-		@star_anim = Gosu::Image::load_tiles(self, "media/star.png", 16, 16, false)
-		@stars = Array.new
+#		@star_anim = Gosu::Image::load_tiles(self, "media/star.png", 16, 16, false)
+#		@stars = Array.new
 		@pl1anim_r = Array.new
 		@pl1anim_l = Array.new
 		@block = Array.new
@@ -101,7 +101,9 @@ class GameWindow < Gosu::Window
                 @pl1anim_l.push(Gosu::Image.new(self, "media/mario_3_l.png", false))
                 @pl1anim_l.push(Gosu::Image.new(self, "media/mario_3_l.png", false))
                 @pl1anim_l.push(Gosu::Image.new(self, "media/mario_3_l.png", false))
-
+		$plsounds = Array.new
+		$plsounds.push(Gosu::Sample.new(self, "media/jump.wav"))
+		$plsounds.push(Gosu::Sample.new(self, "media/breakblock.wav"))
 
 		@block.push(Gosu::Image.new(self, "media/block1.png", false))
 		@block.push(Gosu::Image.new(self, "media/block.png", false))
@@ -138,7 +140,7 @@ class GameWindow < Gosu::Window
 		@player.move
 	        @player.gravity
 		@player.jump2
-		@player.collect_stars(@stars)
+#		@player.collect_stars(@stars)
 		i=0
 
 		@monsters[0].each {|i|  
@@ -146,19 +148,19 @@ class GameWindow < Gosu::Window
 			i.gravity
 			}
 		i=0
-#               while i<@monsters[0].size
- #                      if @monsters[0][i].kill==1
-  #                      @player.live(1)
-   #                     @player.warp(120,350)
-    #                   end
-     #           i+=1
-      #         end
+               while i<@monsters[0].size
+                       if @monsters[0][i].kill==1
+                        @player.live(1)
+                        @player.warp(120,350)
+                       end
+                i+=1
+               end
 
 #			}
 
-		if rand(100) < 4 and @stars.size < 25 then
-		   @stars.push(Star.new(@star_anim))
-		end
+#		if rand(100) < 4 and @stars.size < 25 then
+#		   @stars.push(Star.new(@star_anim))
+#		end
 
 	end 
 
@@ -173,7 +175,7 @@ class GameWindow < Gosu::Window
 		end
 
 		@background_image.draw(0, 0, 0)
-		@stars.each { |star| star.draw }
+		#@stars.each { |star| star.draw }
 		i=0
 
 		@monsters[0].each { |i|

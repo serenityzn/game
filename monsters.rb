@@ -179,6 +179,7 @@ class Mushroom
 	 $mcoord[1][@monsterid]=@y
 	 $mcol+=1
 	 @mkilled=0
+	 @beep = Gosu::Sample.new(window, "media/pop.wav")
 	end
 
 	def warp(x,y)
@@ -215,21 +216,22 @@ class Mushroom
 	end
 	
 	def gravity
-if @mkilled==0
-	 y=@y+2.5
-	 if check(@x,y)==1
-	  @y+=2.5
-	 end
-	 $mcoord[1][@monsterid]=@y
-	 if @y>480
-	 puts "Killed"
-	  destruct
-	 end
-end
+		if @mkilled==0
+			 y=@y+2.5
+			 if check(@x,y)==1
+			  @y+=2.5
+			 end
+			 $mcoord[1][@monsterid]=@y
+			 if @y>480
+			 puts "Killed"
+			  destruct
+			 end
+		end
 	end	
 
 	def move
-if @mkilled==0
+	mushkill
+	if @mkilled==0
 		if @anim>-1 and @anim<11
 		 @image=@mimgs[0]
 		else
@@ -245,15 +247,15 @@ if @mkilled==0
 		else
 		 turn_left
 		end
-end		
+	end		
 	end
 
 	def draw
-if @mkilled==0
+	if @mkilled==0
 	 x=@x/640
 	 xx=@x-x.to_i*640
 	 @image.draw_rot(xx, @y, 1, @angle)
-end
+	end
 	end
 
 	def kill
@@ -269,7 +271,7 @@ end
 	  y*=-1
 	 end
 	 	 
-	 if x<30 and y<20
+	 if x<30 and y==0
 	  kill=1
 	 end
 	 return kill
@@ -327,6 +329,22 @@ end
 	def destruct
 		@mkilled=1
 	end
+
+        def mushkill
+                        if @y-40>$globy and $globy>373
+                         if @x-20<$globx and @x+20>$globx
+#                                puts "MUSHROOM KILLED"
+			 if @mkilled==0
+			  $score+=100
+			  @beep.play
+			 end
+			  @mkilled=1
+			  @y=600
+			  $mcoord[0][@monsterid]=-100
+                         end
+                        end
+        end
+
 end
 
 
