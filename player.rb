@@ -165,13 +165,12 @@ class Player
 	 dr=1
 	i=0
 	while i<arsize
-         if (x > a[0][i].to_i-1 and x < a[0][i].to_i+$envsize[0]) and ( y+1> a[1][i].to_i-15 and y+1< a[1][i].to_i+$envsize[0]+15)
+         if (x > a[0][i].to_i-15 and x < a[0][i].to_i+$envsize[0]+15) and ( y+1> a[1][i].to_i-15 and y+1< a[1][i].to_i+$envsize[0]+15)
                 dr=0
 		if action==1 
 		 $jmp=0
 		end
 		if $break==1 and @isjump==1 and $globy>a[1][i] and ((a[0][i]-$globx<0 and @route==1) or (a[0][i]-$globx>-50 and @route==0))
-		 puts "Block type=#{a[2][i]}"
 		 if a[2][i]==0
 		  $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
 		  a[0].delete_at(i)
@@ -179,7 +178,11 @@ class Player
 		  a[2].delete_at(i)
       	          @beep = $plsounds[1]
 		  @beep.play
+		 else
+		  $blsave = a[1][i]
+#		  a[1][i]-=10
 		 end
+		
 		 $lock=0
 		end
          end
