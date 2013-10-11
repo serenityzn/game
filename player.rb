@@ -18,9 +18,12 @@ class Player
 	 @x, @y = x, y
 	 $globx=@x
 	 $globy=@y
+
 	end
 
 	def turn_left(image)
+	$drsome="media/block1.png"
+
 	 @route=0
 	 x=$globx-$speed[0]
 	 if @count > image.size-1
@@ -263,5 +266,9 @@ class Player
 			end
 		  i+=1
 		 end
+	end
+	
+	def drawsome(x,y)
+	 $somedraw.draw(x, y, 1)
 	end
 end

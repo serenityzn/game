@@ -5,6 +5,7 @@ require './player.rb'
 require './level.rb'
 require './global.rb'
 require './monsters.rb'
+require './drawsome.rb'
 
 module ZOrder
   Background, Stars, Player, UI = *0..3
@@ -24,22 +25,8 @@ class GameWindow < Gosu::Window
 		@level.warp(0,0)
 		@player = Player.new(self)
 		@player.warp(120,350)
+		@drawsome = Drawsome.new(self)
 #	Monsters
-#		@monsters[0].push(Turtle.new(self))
-#		@monsters[1].push(120)
-#		@monsters[2].push(250)
-#		@monsters[0].push(Turtle.new(self))
-#		@monsters[1].push(400)
-#		@monsters[2].push(100)
-#		@monsters[0].push(Turtle.new(self))
-#		@monsters[1].push(1400)
-#		@monsters[2].push(10)
-#		@monsters[0].push(Mushroom.new(self))
-#		@monsters[1].push(100)
-#		@monsters[2].push(420)
-#		@monsters[0].push(Mushroom.new(self))
-#		@monsters[1].push(150)
-#		@monsters[2].push(420)
 		@monsters[0].push(Mushroom.new(self))
 		@monsters[1].push(200)
 		@monsters[2].push(420)
@@ -166,6 +153,7 @@ class GameWindow < Gosu::Window
 
 	def draw
 		@level.draw($globx,@block)
+		@drawsome.draw(self,$drsome,$drx,$dry)
 
 		if @player.live(0) > 0 
 			@player.draw

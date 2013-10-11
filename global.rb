@@ -1,3 +1,10 @@
+$drcount=10
+$drsome = Array.new
+$drsome.push("media/block.png")
+$drsome.push("media/block1.png")
+$drsome.push("media/block2.png")
+$drx=80
+$dry=80
 $mcoord = Array.new
 $mcoord[0] = Array.new
 $mcoord[1] = Array.new
@@ -27,7 +34,6 @@ $levelarray=[
 "+                   /|       /|      /|        /|                                                                                ####  ####    #####  ####    /|              /|##########                      ",
 "===========================================================  ==============   ======================================================================  =========================================================="
                 ]
-
 =begin $levelarray=[
                          "1234567812345678",
                         "                ",
