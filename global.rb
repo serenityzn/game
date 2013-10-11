@@ -26,31 +26,32 @@ $levelarray=[
 "+                   /|       /|      /|        /|                                                                                ####  ####    #####  ####    /|              /|##########                      ",
 "===========================================================  ==============   ======================================================================  =========================================================="
                 ]
-
-#$levelarray=[
-#                        "123456781234567812345678123456781234567812345678",
-#                        "                                                ",
-#                        "                                                ",
-#                        "                                                ",
-#                        "                                                ",
-#                        "                                                ",
-#                        "                                                ",
-#                        "   -                                            ",
-#                        "                                                ",
-#                        "                                                ",
-#                        "  --                                            ",
-#                        "                                                "
-#                ]
-
+=begin $levelarray=[
+                         "1234567812345678",
+                        "                ",
+                        "    ??-?-?      ",
+                        "                ",
+                        "                ",
+                        "    --?---      ",
+                        "                ",
+                        "                ",
+                        "    ??????      ",
+                        "                ",
+                        "                ",
+                        "================"
+                ]
+=end
 
 $lvl_xy = Array.new
 $lvl_xy[0] = Array.new
 $lvl_xy[1] = Array.new
+$lvl_xy[2] = Array.new
 $levelflag
 
         array=$levelarray
         i=0
         j=0
+	step=0
 	 array.each {|a|
                 while j < $envsize[1]
                  if a[j].chr=='-' or a[j].chr=='=' or a[j].chr=='?' or a[j].chr=='+' or a[j].chr=='/' or a[j].chr=='|' or a[j].chr=='I' or a[j].chr=='t' or a[j].chr=='#'
@@ -58,15 +59,24 @@ $levelflag
                    y =40*i
                     $lvl_xy[0].push(x)
                     $lvl_xy[1].push(y)
+			if a[j].chr=='?'
+			 $lvl_xy[2].push(1)
+			else
+			 $lvl_xy[2].push(0)
+			end
                  end
                  j +=1
                 end
                 j=0
                 i+=1
 	 }
-#puts $levelarray
+puts $levelarray
 kk=0
-#$lvl_xy[0].each {|kk| puts kk}
+#$lvl_xy[2].each {|kk| puts kk}
+while kk<$lvl_xy[1].size
+	puts "X=#{$lvl_xy[0][kk]}, Y=#{$lvl_xy[1][kk]}, TYPE=#{$lvl_xy[2][kk]} "
+	kk+=1
+end
 
 
  def check(x,y)
@@ -83,12 +93,6 @@ kk=0
 
         return dr
         end
-#puts check(55,439.5)
-# SPeed counts. 1=move speed, jump speed tap, gravity power, jump high (to increase jump high decrease value)
-
-#puts $lvl_xy[0]
-#puts ""
-#puts $lvl_xy[1]
 
   def delblock(x,y,array)
          ax=x/40
@@ -102,10 +106,3 @@ kk=0
         return array
         end
 
-#puts delblock(120,280,$levelarray)
-#puts $jmparr
-#i=0
-#while i<$lvl_xy[0].size
-#puts "[#{$lvl_xy[0][i]},#{$lvl_xy[1][i]}]"
-#i+=1
-#end
