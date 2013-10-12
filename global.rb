@@ -1,7 +1,5 @@
-$drcount=10
+$drcount=20
 $drsome = Array.new
-$drsome.push("media/block.png")
-$drsome.push("media/block1.png")
 $drsome.push("media/block2.png")
 $drx=80
 $dry=80
@@ -16,11 +14,13 @@ $break=0
 $lock=0
 $mcol=0
 #[0] block size,  [1] level size
-$envsize=[40, 208]
+#$envsize=[40, 208]
+$envsize=[40, 16]
 # SPeed counts. 1=move speed, jump speed tap, gravity power, jump high (to increase jump high decrease value)
 $speed = [4, 7, 2.5, 1, 13] #24
+$blsave = Array.new
 $levelarray1 = Array.new
-$levelarray=[
+=begin $levelarray=[
 "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678",
 "+                                                                                                                                                                                                               ",
 "+                                                                                                                                                                                       ##                      ",
@@ -34,7 +34,8 @@ $levelarray=[
 "+                   /|       /|      /|        /|                                                                                ####  ####    #####  ####    /|              /|##########                      ",
 "===========================================================  ==============   ======================================================================  =========================================================="
                 ]
-=begin $levelarray=[
+=end
+ $levelarray=[
                          "1234567812345678",
                         "                ",
                         "    ??-?-?      ",
@@ -48,8 +49,9 @@ $levelarray=[
                         "                ",
                         "================"
                 ]
-=end
 
+
+$blsave=$levelarray
 $lvl_xy = Array.new
 $lvl_xy[0] = Array.new
 $lvl_xy[1] = Array.new

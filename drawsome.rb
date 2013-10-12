@@ -6,7 +6,7 @@ class Drawsome
 	def draw(window, pnga,x,y)
 	if $drcount==0
 	 pnga.pop
-	 $drcount=10
+	 $drcount=20
 	end
 	$drcount-=1
 	if pnga.size >0
@@ -15,7 +15,10 @@ class Drawsome
 	 if png!="none"
 		 @image.draw(x,y,1)
 	 end
+	else
+	 $levelarray=$blsave
 	end
+
 	end
 	
 end

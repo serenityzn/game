@@ -22,7 +22,6 @@ class Player
 	end
 
 	def turn_left(image)
-	$drsome="media/block1.png"
 
 	 @route=0
 	 x=$globx-$speed[0]
@@ -182,7 +181,13 @@ class Player
       	          @beep = $plsounds[1]
 		  @beep.play
 		 else
-		  $blsave = a[1][i]
+      	          @beep = $plsounds[2]
+		  @beep.play
+		  $blsave = $levelarray
+		  $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
+		  $drsome.push("media/block2.png")
+		  $drx=a[0][i]
+		  $dry=a[1][i]-20
 #		  a[1][i]-=10
 		 end
 		

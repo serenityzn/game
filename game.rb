@@ -91,6 +91,7 @@ class GameWindow < Gosu::Window
 		$plsounds = Array.new
 		$plsounds.push(Gosu::Sample.new(self, "media/jump.wav"))
 		$plsounds.push(Gosu::Sample.new(self, "media/breakblock.wav"))
+		$plsounds.push(Gosu::Sample.new(self, "media/bump.wav"))
 
 		@block.push(Gosu::Image.new(self, "media/block1.png", false))
 		@block.push(Gosu::Image.new(self, "media/block.png", false))
