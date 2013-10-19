@@ -183,7 +183,10 @@ class Player
 		 else
       	          @beep = $plsounds[2]
 		  @beep.play
-		  $blsave = $levelarray
+		  	if $bllock==0
+			 $blsave=Marshal.load(Marshal.dump($levelarray))
+			 $bllock=1
+			end
 		  $levelarray=delblock(a[0][i],a[1][i],$levelarray)		 
 		  $drsome.push("media/block2.png")
 		  $drx=a[0][i]

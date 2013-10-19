@@ -1,8 +1,8 @@
 $drcount=20
 $drsome = Array.new
 $drsome.push("media/block2.png")
-$drx=80
-$dry=80
+$drx=-10
+$dry=-10
 $mcoord = Array.new
 $mcoord[0] = Array.new
 $mcoord[1] = Array.new
@@ -14,13 +14,14 @@ $break=0
 $lock=0
 $mcol=0
 #[0] block size,  [1] level size
-#$envsize=[40, 208]
-$envsize=[40, 16]
+$envsize=[40, 208]
+#$envsize=[40, 16]
 # SPeed counts. 1=move speed, jump speed tap, gravity power, jump high (to increase jump high decrease value)
 $speed = [4, 7, 2.5, 1, 13] #24
 $blsave = Array.new
-$levelarray1 = Array.new
-=begin $levelarray=[
+$bllock=0
+$levelarray = Array.new
+ $levelarray=[
 "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678",
 "+                                                                                                                                                                                                               ",
 "+                                                                                                                                                                                       ##                      ",
@@ -34,7 +35,7 @@ $levelarray1 = Array.new
 "+                   /|       /|      /|        /|                                                                                ####  ####    #####  ####    /|              /|##########                      ",
 "===========================================================  ==============   ======================================================================  =========================================================="
                 ]
-=end
+=begin
  $levelarray=[
                          "1234567812345678",
                         "                ",
@@ -49,9 +50,9 @@ $levelarray1 = Array.new
                         "                ",
                         "================"
                 ]
+=end
 
-
-$blsave=$levelarray
+#$blsave=$levelarray
 $lvl_xy = Array.new
 $lvl_xy[0] = Array.new
 $lvl_xy[1] = Array.new

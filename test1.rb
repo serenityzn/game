@@ -1,10 +1,5 @@
-class Test
-	def initialize
-		@@x=1
-		@y=1
-	end
-end
-
-
-a = Test.new()
-puts a.@@x
+$a=['12']
+$b=$a
+puts "first #{$b}"
+$a=['22']
+puts "second #{$b}"
